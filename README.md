@@ -16,6 +16,7 @@ End-to-end data analysis and machine learning project on 10,000 student placemen
 - **Model insight:** technical score (26%) and internships (23%) are the top predictors. Branch adds only 1-2% once these are known.
 
 ## Model results (20% test set)
+
 | Model | Accuracy | Precision | Recall | F1 | AUC |
 |---|---|---|---|---|---|
 | Logistic Regression | 84.1% | 87.7% | 90.3% | 89.0% | 0.899 |
@@ -24,6 +25,7 @@ End-to-end data analysis and machine learning project on 10,000 student placemen
 5-fold cross-validation accuracy is about 85%.
 
 ## Salary prediction (placed students only)
+
 | Model | MAE (LPA) | R2 |
 |---|---|---|
 | Linear Regression | 3.90 | 0.487 |
@@ -69,4 +71,6 @@ The dataset is a synthetic Kaggle dataset ("Student Placement Details"), so patt
 
 ## Author
 Aryan Verma, B.Tech CSE (AI & ML)
-GitHub: https://github.com/av7170393-ctrl | LinkedIn: https://www.linkedin.com/in/aryan-verma-5360a2415
+
+- GitHub: https://github.com/av7170393-ctrl
+- LinkedIn: https://www.linkedin.com/in/aryan-verma-5360a2415
