@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Campus Placement Analytics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--tx:#14213d;--mu:#5c6b8a;--bd:#e3e8f2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1424;--card:#171f35;--tx:#eef2ff;--mu:#9aa8c7;--bd:#263150}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+.w{max-width:1100px;margin:0 auto;padding:20px 14px}
+header{background:linear-gradient(135deg,#3b6fd4,#7b4fd6);color:#fff;border-radius:16px;padding:24px 20px}
+h1{margin:0 0 6px;font-size:1.6rem}header p{margin:0;opacity:.9}
+.tags span{display:inline-block;background:rgba(255,255,255,.18);border-radius:20px;padding:2px 10px;margin:10px 6px 0 0;font-size:.8rem}
+.k{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.k div,.c{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px}
+.k b{display:block;font-size:1.6rem}.k small{color:var(--mu)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+h2{font-size:1rem;margin:0 0 2px}.c p{margin:0 0 8px;color:var(--mu);font-size:.82rem}
+canvas{max-width:100%}
+.i{background:var(--card);border:1px solid var(--bd);border-left:5px solid #3b6fd4;border-radius:14px;padding:14px;margin-top:14px}
+.i li{margin:6px 0}footer{color:var(--mu);font-size:.8rem;margin-top:14px;text-align:center}
+</style></head><body><div class="w">
+<header><h1>Campus Placement Analytics</h1><p>What really decides who gets placed, and at what salary? An analysis of 10,000 students.</p>
+<div class="tags"><span>Python</span><span>Pandas</span><span>Seaborn</span><span>Data Cleaning</span><span>EDA</span></div></header>
+<div class="k"><div><b>10,000</b><small>students analysed</small></div><div><b>71%</b><small>placed overall</small></div><div><b>8.31 LPA</b><small>median package</small></div><div><b>12.55 LPA</b><small>top branch avg (CSE)</small></div></div>
+<div class="g">
+<div class="c"><h2>Average package by branch</h2><p>Placed students only, LPA</p><canvas id="a"></canvas></div>
+<div class="c"><h2>Placement rate by branch</h2><p>% of students placed</p><canvas id="b"></canvas></div>
+<div class="c"><h2>Top recruiting companies</h2><p>Students placed</p><canvas id="d"></canvas></div>
+<div class="c"><h2>CGPA vs placement chance</h2><p>% placed in each CGPA band</p><canvas id="e"></canvas></div>
+<div class="c"><h2>Internships vs placement chance</h2><p>% placed by number of internships</p><canvas id="f"></canvas></div>
+<div class="c"><h2>Skill vs placement rate</h2><p>% placed among students with the skill</p><canvas id="s"></canvas></div>
+</div>
+<div class="i"><h2>Key findings</h2><ul>
+<li><b>Branch matters most for salary:</b> CSE earns about 2.2x Civil (12.55 vs 5.73 LPA).</li>
+<li><b>Internships are a big lever:</b> 0 internships gives 49% placed; 2 internships gives 90%.</li>
+<li><b>CGPA still counts:</b> chance climbs from 41% (below 6) to 93% (above 9).</li>
+<li><b>Two firms dominate:</b> Accenture and TCS give about 59% of all placements.</li>
+<li><b>Skills:</b> SQL and web skills (React, HTML) beat MATLAB by about 18 points.</li></ul>
+<h2 style="margin-top:12px">Recommendation</h2><p style="margin:4px 0 0">Build 1-2 internships and solid projects early, keep CGPA above 8, and prepare for service companies first while building projects for product firms.</p></div>
+<div class="i" style="border-left-color:#2a9d8f"><h2>Method</h2><ul>
+<li>Loaded and checked the CSV with pandas (no duplicates, no merge needed).</li>
+<li>Replaced placeholder salary 0 of unplaced students with missing values; standardised branch names.</li>
+<li>Grouped and compared with pandas, charted with seaborn / matplotlib.</li></ul></div>
+<footer>Dataset: Kaggle "Student Placement Details" (synthetic). Patterns may differ from real colleges.</footer></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+var mu=getComputedStyle(document.documentElement).getPropertyValue('--mu')||'#888';
+Chart.defaults.color=mu.trim();Chart.defaults.font.size=11;
+function bar(id,l,d,c,h,suf){new Chart(document.getElementById(id),{type:'bar',data:{labels:l,datasets:[{data:d,backgroundColor:c,borderRadius:5}]},
+options:{indexAxis:h?'y':'x',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(x){return x.parsed[h?'x':'y']+(suf||'')}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(128,128,128,.15)'}}}}})}
+bar('a',['CSE','IT','ECE','Mech','Civil'],[12.55,10.64,8.64,6.72,5.73],'#3b6fd4',1,' LPA');
+bar('b',['CSE','IT','ECE','Mech','Civil'],[81.5,75,68.8,52.8,45.5],'#e76f51',1,'%');
+bar('d',['Accenture','TCS','Adobe','Amazon','IBM','Tech Mahindra','Deloitte','Infosys','Wipro','HCL'],[2248,1931,524,477,381,317,310,308,271,178],'#2a9d8f',1);
+bar('e',['<6','6-7','7-8','8-9','9+'],[40.8,56.9,71.3,84.8,93.2],'#7b4fd6',0,'%');
+bar('f',['0','1','2','3'],[49.2,73.5,89.9,89.4],'#f4a261',0,'%');
+bar('s',['SQL','HTML','React','Express','CSS','Java','Node','C++','Python','MATLAB'],[79.1,78.5,78.2,77.7,77.1,77,76.4,75.3,70.4,60.3],'#3b6fd4',1,'%');
+</script></body></html>
